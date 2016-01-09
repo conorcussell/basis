@@ -1,3 +1,10 @@
 .header
   a(href='/') Home
-  a(href='/signup') Signup
+
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/signup") Signup
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/logout") Logout

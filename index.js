@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var path = require('path');
+var lusca = require('lusca');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -17,12 +19,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('express-session')({
-    secret: 'keyboard cat',
+    secret: 'basis',
     resave: false,
     saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(lusca({
+    csrf: true,
+    csp: { /* ... */},
+    xframe: 'SAMEORIGIN',
+    p3p: 'ABCDEF',
+    hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
+    xssProtection: true
+}));
 
 app.use(express.static('public'));
 
@@ -40,6 +51,10 @@ app.get('/', homeController.index);
 
 //Users
 app.get('/signup', userController.getSignup);
+app.post('/signup', userController.postSignup);
+
+app.get('/login', userController.getLogin);
+app.post('/login', userController.postLogin);
 
 // passport config
 var User = require('./models/user');
