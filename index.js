@@ -1,9 +1,28 @@
 var express = require('express');
 var app = express();
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 //====== Views ======//
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static('public'));
 
@@ -22,10 +41,20 @@ app.get('/', homeController.index);
 //Users
 app.get('/signup', userController.getSignup);
 
+// passport config
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// mongoose
+mongoose.connect('mongodb://localhost/basis');
 
 
 //====== Server ======//
 var port = process.env.PORT || 5000;
- app.listen(port, function() {
-   console.log("Listening on " + port);
- });
+app.listen(port, function() {
+ console.log("Listening on " + port);
+});
+
+module.exports = app;
