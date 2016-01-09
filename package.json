@@ -1,0 +1,22 @@
+{
+  "name": "basis",
+  "version": "1.0.0",
+  "description": "Node + Express starter",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conorcussell/basis.git"
+  },
+  "author": "Conor Cussell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/conorcussell/basis/issues"
+  },
+  "homepage": "https://github.com/conorcussell/basis#readme"
+}
