@@ -57,7 +57,7 @@ app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 
 // passport config
-var User = require('./models/user');
+var User = require('./models/User');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
