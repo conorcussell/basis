@@ -11,18 +11,14 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 
-//====== Controllers ======//
-
 var homeController = require('./controllers/home/index');
 var userController = require('./controllers/users/index');
 
 
 var passportConf = require('./config/passport');
 
-// mongoose
 mongoose.connect('mongodb://localhost/basis');
 
-//====== Config Express ======//
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static('public'));
@@ -50,13 +46,9 @@ app.use(function(req, res, next) {
 });
 
 
-//====== Routes ======//
 
-//Home
 app.get('/', homeController.index);
 
-
-//Users
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
@@ -68,7 +60,7 @@ app.get('/profile', userController.getProfile);
 app.get('/logout', userController.logout);
 
 
-//====== Server ======//
+
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
  console.log("Listening on " + port);
