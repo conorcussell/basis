@@ -5,6 +5,7 @@ var lusca = require('lusca');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var flash = require('express-flash');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -15,6 +16,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -28,7 +30,7 @@ app.use(passport.session());
 
 app.use(lusca({
     csrf: true,
-    csp: { /* ... */},
+    csp: { },
     xframe: 'SAMEORIGIN',
     p3p: 'ABCDEF',
     hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
@@ -55,6 +57,8 @@ app.post('/signup', userController.postSignup);
 
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
+
+app.get('/logout', userController.getLogout);
 
 // passport config
 var User = require('./models/User');

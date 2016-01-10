@@ -12,7 +12,8 @@ exports.getSignup = function(req, res) {
 exports.postSignup = function(req, res) {
   User.register(new User({ username : req.body.username, email: req.body.email}), req.body.password, function(err, user) {
     if (err) {
-        return res.render('users/signup', { user : user });
+        req.flash('error', err);
+        res.render('users/signup', { user : user });
     }
 
     passport.authenticate('local')(req, res, function () {
@@ -26,17 +27,30 @@ exports.getLogin = function(req, res) {
 };
 
 exports.postLogin = function(req, res, next) {
-  console.log('login', req.body.email);
-
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { console.log('not a user'); return res.redirect('/login'); }
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    if (!user) {
+      console.log(err);
+      req.flash('error', err);
+      res.redirect('/login');
+    }
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
       return res.redirect('/');
     });
   })(req, res, next);
 
+};
+
+exports.getLogout = function(req, res) {
+  req.logout();
+  res.redirect('/');
 };
 
 
