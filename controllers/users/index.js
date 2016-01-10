@@ -3,8 +3,6 @@ var crypto = require('crypto');
 var passport = require('passport');
 var User = require('../../models/User');
 
-console.log(User);
-
 exports.getSignup = function(req, res) {
   if (req.user) {
     return res.redirect('/');
@@ -13,7 +11,6 @@ exports.getSignup = function(req, res) {
     title: 'Signup'
   });
 };
-
 
 
 exports.postSignup = function(req, res) {
@@ -52,8 +49,6 @@ exports.postSignup = function(req, res) {
     });
   });
 };
-
-
 
 
 exports.getLogin = function(req, res) {
