@@ -12,7 +12,7 @@ exports.getSignup = function(req, res) {
 exports.postSignup = function(req, res) {
   User.register(new User({ username : req.body.username, email: req.body.email}), req.body.password, function(err, user) {
     if (err) {
-        req.flash('error', err);
+        req.flash('error', 'Sorry, that username is taken.');
         res.render('users/signup', { user : user });
     }
 

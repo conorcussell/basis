@@ -14,9 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //====== Views ======//
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-
 app.use(logger('dev'));
-app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -25,6 +23,7 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
