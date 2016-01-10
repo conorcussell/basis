@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var flash = require('express-flash');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var expressValidator = require('express-validator');
 
 //====== Controllers ======//
 
@@ -28,7 +28,8 @@ app.set('view engine', 'jade');
 app.use(express.static('public'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({
   resave: true,

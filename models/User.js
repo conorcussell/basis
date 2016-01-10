@@ -1,4 +1,4 @@
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -10,10 +10,9 @@ var User = new Schema({
 });
 
 User.pre('save', function(next) {
+  console.log('trying to save user');
   var user = this;
-  if (!user.isModified('password')) {
-    return next();
-  }
+  console.log(user);
   bcrypt.genSalt(10, function(err, salt) {
     if (err) {
       return next(err);
