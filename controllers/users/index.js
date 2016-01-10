@@ -24,7 +24,6 @@ exports.postSignup = function(req, res) {
   var errors = req.validationErrors();
 
    if (errors) {
-    console.log('errored', errors);
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
@@ -36,7 +35,6 @@ exports.postSignup = function(req, res) {
   });
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
-    console.log('User findone called');
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');
@@ -46,7 +44,6 @@ exports.postSignup = function(req, res) {
         return next(err);
       }
       req.logIn(user, function(err) {
-        console.log('trying to login in that user');
         if (err) {
           return next(err);
         }

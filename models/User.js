@@ -10,7 +10,6 @@ var User = new Schema({
 });
 
 User.pre('save', function(next) {
-  console.log('trying to save user');
   var user = this;
   console.log(user);
   bcrypt.genSalt(10, function(err, salt) {
