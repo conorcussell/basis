@@ -18,41 +18,16 @@ ol, ul {
 blockquote, q {
   quotes: none; }
 
-blockquote:before, blockquote:after {
-  content: '';
-  content: none; }
+blockquote {
+  &:before, &:after {
+    content: '';
+    content: none; } }
 
-q:before, q:after {
-  content: '';
-  content: none; }
+q {
+  &:before, &:after {
+    content: '';
+    content: none; } }
 
 table {
   border-collapse: collapse;
   border-spacing: 0; }
-
-* {
-  box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  padding: 0; }
-
-body {
-  font-family: 'Open Sans'; }
-
-a {
-  color: #000;
-  margin-left: 20px;
-  margin-top: 20px; }
-
-input {
-  display: block;
-  width: 100%;
-  border: 1px solid #888;
-  padding: 12px 16px;
-  margin-bottom: 10px; }
-
-.header {
-  width: 100%;
-  height: 80px;
-  background-color: #f5f5f5; }
