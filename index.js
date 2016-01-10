@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var path = require('path');
 var lusca = require('lusca');
 var logger = require('morgan');
@@ -10,38 +11,42 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
-//====== Views ======//
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(require('express-session')({
-    secret: 'basis',
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(lusca({
-    csrf: true,
-    csp: { },
-    xframe: 'SAMEORIGIN',
-    p3p: 'ABCDEF',
-    hsts: {maxAge: 31536000, includeSubDomains: true, preload: true},
-    xssProtection: true
-}));
-
-app.use(express.static('public'));
-
 //====== Controllers ======//
 
 var homeController = require('./controllers/home/index');
 var userController = require('./controllers/users/index');
+
+
+var passportConf = require('./config/passport');
+
+// mongoose
+mongoose.connect('mongodb://localhost/basis');
+
+//====== Config Express ======//
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.static('public'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'basis',
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(lusca({
+  csrf: true,
+  xframe: 'SAMEORIGIN',
+  xssProtection: true
+}));
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
 
 
 //====== Routes ======//
@@ -57,16 +62,7 @@ app.post('/signup', userController.postSignup);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 
-app.get('/logout', userController.getLogout);
-
-// passport config
-var User = require('./models/User');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-// mongoose
-mongoose.connect('mongodb://localhost/basis');
+app.get('/logout', userController.logout);
 
 
 //====== Server ======//

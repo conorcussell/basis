@@ -48,7 +48,7 @@ exports.postLogin = function(req, res, next) {
 
 };
 
-exports.getLogout = function(req, res) {
+exports.logout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
