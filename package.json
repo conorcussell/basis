@@ -40,11 +40,14 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
     "cucumber": "^0.9.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-sass": "^2.1.1",
+    "mocha": "^2.3.4",
     "sass-lint": "^1.4.0",
+    "should": "^8.1.0",
     "zombie": "^4.2.1"
   }
 }
