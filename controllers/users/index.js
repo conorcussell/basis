@@ -89,7 +89,14 @@ exports.postLogin = function(req, res, next) {
   })(req, res, next);
 };
 
-
+exports.getProfile = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
+  res.render('users/profile', {
+    user: req.user
+  });
+};
 
 
 exports.logout = function(req, res) {

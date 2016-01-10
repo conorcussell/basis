@@ -63,6 +63,8 @@ app.post('/signup', userController.postSignup);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 
+app.get('/profile', userController.getProfile);
+
 app.get('/logout', userController.logout);
 
 
