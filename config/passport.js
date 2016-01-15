@@ -1,7 +1,11 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+
+var secrets = require('./secrets.js');
 
 var User = require('../models/User.js');
+
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -36,6 +40,19 @@ passport.use(new LocalStrategy({
         });
     });
 }));
+
+passport.use(new FacebookStrategy({
+  clientID: secrets.facebook.clientID,
+  clientSecret: secrets.facebook.clientSecret,
+  callbackURL: secrets.facebook.callbackURL,
+  enableProof: false
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
 
 exports.isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
