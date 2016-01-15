@@ -6,7 +6,8 @@ var Schema = mongoose.Schema;
 var User = new Schema({
     email: { type: String, unique: true, lowercase: true },
     password: String,
-    username: String
+    username: String,
+    facebookId: { type: String, unique: true }
 });
 
 User.pre('save', function(next) {
