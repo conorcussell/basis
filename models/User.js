@@ -7,7 +7,11 @@ var User = new Schema({
     email: { type: String, unique: true, lowercase: true },
     password: String,
     username: String,
-    facebookId: { type: String, unique: true }
+    provider: String,
+    facebook: {
+      id: { type: String, unique: true },
+      photo: String
+    }
 });
 
 User.pre('save', function(next) {
@@ -26,6 +30,11 @@ User.pre('save', function(next) {
     });
   });
 });
+
+User.findOrCreate = function() {
+ // Todo - make function to remove stuff from passport.js
+};
+
 
 User.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {

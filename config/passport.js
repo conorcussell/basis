@@ -48,10 +48,32 @@ passport.use(new FacebookStrategy({
   enableProof: false
 },
 function(accessToken, refreshToken, profile, done) {
-  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    return done(err, user);
-  });
-}
+        console.log(profile.emails);
+        User.findOne({
+            'facebook.id': profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                user = new User({
+                    name: profile.displayName,
+                    email: 'nil',
+                    username: profile.username,
+                    provider: 'facebook',
+                    facebook: {
+                        id: profile.id
+                    }
+                });
+                user.save(function(err) {
+                    if (err) console.log(err);
+                    return done(err, user);
+                });
+            } else {
+                return done(err, user);
+            }
+        });
+    }
 ));
 
 exports.isAuthenticated = function(req, res, next) {
