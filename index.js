@@ -59,7 +59,13 @@ app.get('/profile', userController.getProfile);
 
 app.get('/logout', userController.logout);
 
+app.get('/auth/facebook', userController.facebookLogin);
 
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
