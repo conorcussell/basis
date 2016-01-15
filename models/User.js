@@ -9,8 +9,7 @@ var User = new Schema({
     username: String,
     provider: String,
     facebook: {
-      id: { type: String, unique: true },
-      photo: String
+      id: String
     }
 });
 
