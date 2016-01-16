@@ -11,11 +11,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 
-var homeController = require('./controllers/home/index');
-var userController = require('./controllers/users/index');
-
-
 var passportConf = require('./config/passport');
+
+var routes = require('./routes/routes');
 
 mongoose.connect('mongodb://localhost/basis');
 
@@ -45,27 +43,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-
-
-app.get('/', homeController.index);
-
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
-
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-
-app.get('/profile', userController.getProfile);
-
-app.get('/logout', userController.logout);
-
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+app.use('/', routes);
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
