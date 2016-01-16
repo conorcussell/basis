@@ -2,6 +2,8 @@ extends ../layouts/layout
 
 block content
   .row
+    a(href="/create") Create Post
+  .row
     .col-quarter
       each post in posts
         .post= post.title

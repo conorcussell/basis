@@ -4,6 +4,13 @@ block content
   .row
     .col-quarter
       .post= post.title
+      form(method="POST", action="/posts/update/#{post.id}", enctype="application/x-www-form-urlencoded")
+        input(type="hidden" name="_method" value="PUT")
+        input(type='hidden', name='_csrf', value=_csrf)
+        input(type='text', name="title", placeholder='Title')
+        textarea(name="content", placeholder='Post goes here..')
+        button(type="submit") Update
+
       form(method="POST", action="/posts/delete/#{post.id}", enctype="application/x-www-form-urlencoded")
         input(type="hidden" name="_method" value="DELETE")
         input(type='hidden', name='_csrf', value=_csrf)

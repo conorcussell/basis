@@ -60,6 +60,7 @@ exports.newPost = function(req, res) {
     } else {
       res.format({
           html: function(){
+              req.flash('success', { msg: 'Post Added!' });
               res.location("posts");
               res.redirect("/posts");
           },
@@ -72,6 +73,20 @@ exports.newPost = function(req, res) {
 };
 
 exports.updatePost = function(req, res) {
+  Post.findById(req.params.id, function(err, post) {
+    if (err) {
+      return next(err);
+    }
+    post.title = req.body.title || '';
+    post.content = req.body.content || '';
+    post.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', { msg: 'Post Updated!' });
+      res.redirect('/posts/' + post.id);
+    });
+  });
 
 };
 
@@ -87,6 +102,7 @@ exports.deletePost = function(req, res) {
         } else {
           res.format({
             html: function(){
+                 req.flash('success', { msg: 'Post Deleted!' });
                  res.redirect("/posts");
             },
             json: function(){

@@ -21,11 +21,9 @@ router.get('/posts/:id', postController.showPost);
 
 
 router.get('/create', passportConf.isAuthenticated, postController.createPost);
-
-
 router.post('/create', passportConf.isAuthenticated, postController.newPost);
-
 router.post('/posts/:id', passportConf.isAuthenticated, postController.updatePost);
+router.put('/posts/update/:id', passportConf.isAuthenticated, postController.updatePost);
 router.delete('/posts/delete/:id', passportConf.isAuthenticated, postController.deletePost);
 
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
