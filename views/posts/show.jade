@@ -4,4 +4,7 @@ block content
   .row
     .col-quarter
       .post= post.title
-      a(href="/posts/delete/#{post.id}") Delete
+      form(method="POST", action="/posts/delete/#{post.id}", enctype="application/x-www-form-urlencoded")
+        input(type="hidden" name="_method" value="DELETE")
+        input(type='hidden', name='_csrf', value=_csrf)
+        button(type="submit") Delete
