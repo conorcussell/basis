@@ -1,0 +1,35 @@
+.container {
+  max-width: 1280px;
+  margin: 20px auto;
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-half {
+  width: 50%;
+}
+
+.col-quarter {
+  width: 25%;
+}
+
+.col-three-quarters {
+  width: 75%;
+}
+
+.col-third {
+  width: 33.3333%;
+}
+
+.col-two-thirds {
+  width: 66.6666%;
+}
+

@@ -1,10 +1,19 @@
-.header
-  a(href='/') Home
-  if (!user)
-    a(href="/login") Login
-    br
-    a(href="/signup") Signup
-  if (user)
-    p You are currently logged in as #{user.username}
-    a(href="/logout") Logout
+header.header
+
+  nav.menu
+    .menu-item
+      a(href='/') Home
+    if (!user)
+      .menu-item
+        a(href="/login") Login
+      .menu-item
+        a(href="/signup") Signup
+
+    if (user)
+      .menu-item
+        span.menu-item__user #{user.username}
+      .menu-item
+        a(href="/profile") Profile
+      .menu-item
+        a(href="/logout") Logout
 

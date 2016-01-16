@@ -1,12 +1,16 @@
 extends ../layouts/layout
 
 block content
-  form(role='form', action='/login',method='post', style='max-width: 300px; margin: 0 auto;')
-    input(type='hidden', name='_csrf', value=_csrf)
-    input(type='text', name="email", placeholder='Email Address')
-    input(type='password', name="password", placeholder='Password')
-    button(type='submit') Submit
-  a(class='btn btn-facebook' href='/auth/facebook') Login with Facebook
+  .row
+    .col-quarter
+    .col-half.card
+      form(role='form', action='/login',method='post')
+        input(type='hidden', name='_csrf', value=_csrf)
+        input(type='text', name="email", placeholder='Email Address')
+        input(type='password', name="password", placeholder='Password')
+        button(class="btn", type='submit') Submit
+        a(class='btn btn-facebook' href='/auth/facebook') Login with Facebook
+    .col-quarter
 
 
 

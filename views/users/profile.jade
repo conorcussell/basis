@@ -1,7 +1,11 @@
 extends ../layouts/layout
 
 block content
-  .profile-info
-    span!= user.username
-    span!= user.email
-    span!= user.facebook.photo
+  .row
+    .col-quarter
+    .col-half
+      div!= user.username
+      div!= user.email
+      div
+        img(src="#{user.facebook.photo}?type=large")
+    .col-quarter
