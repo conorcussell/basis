@@ -6,7 +6,7 @@ var Post = require('../../models/Post');
 exports.getPosts = function(req, res) {
   Post.find({}, function(err, posts){
     if (err) {
-      return console.error(err);
+      return err;
     } else {
       res.format({
         html: function(){
@@ -49,7 +49,6 @@ exports.createPost = function(req, res) {
 };
 
 exports.newPost = function(req, res) {
-  console.log('making new post');
   var title = req.body.title;
   var content = req.body.content;
   Post.create({
@@ -57,7 +56,7 @@ exports.newPost = function(req, res) {
     content: content
   }, function(err, post) {
     if (err) {
-      res.send("There was a problem adding the information to the database.");
+      return err;
     } else {
       res.format({
           html: function(){
@@ -78,5 +77,27 @@ exports.updatePost = function(req, res) {
 
 
 exports.deletePost = function(req, res) {
+  Post.findOne({_id: req.params.id}, function(err, post){
+    if (err) {
+      return err;
+    } else {
+      post.remove(function(err, post){
+        if (err) {
+          return err;
+        } else {
+          res.format({
+            html: function(){
+                 res.redirect("/posts");
+            },
+            json: function(){
+            res.json({message : 'deleted',
+              item : post
+              });
+            }
+          });
+        }
+      });
+    }
 
+  });
 };
