@@ -43,6 +43,13 @@ exports.showPost = function(req, res) {
 };
 
 exports.createPost = function(req, res) {
+  res.render('posts/create', {
+    title: 'New Post'
+  });
+};
+
+exports.newPost = function(req, res) {
+  console.log('making new post');
   var title = req.body.title;
   var content = req.body.content;
   Post.create({
@@ -63,6 +70,10 @@ exports.createPost = function(req, res) {
       });
     }
   });
+};
+
+exports.updatePost = function(req, res) {
+
 };
 
 
