@@ -45,16 +45,11 @@ passport.use(new FacebookStrategy({
   clientID: secrets.facebook.clientID,
   clientSecret: secrets.facebook.clientSecret,
   callbackURL: secrets.facebook.callbackURL,
-  profileFields: ['name', 'emails', 'link', 'locale', 'timezone'],
+  profileFields: ['id', 'emails', 'name', 'displayName'],
   enableProof: false
 },
 function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        if (profile.emails == undefined) {
-            var email = profile.id + "@facebook.com";
-        } else {
-            var email = profile.emails[0].value;
-        }
+        console.log(profile, 'Profile << CALLED');
         User.findOne({
             'facebook.id': profile.id
         }, function(err, user) {
@@ -63,8 +58,8 @@ function(accessToken, refreshToken, profile, done) {
             }
             if (!user) {
                 user = new User({
-                    username: profile.name.firstName + profile.name.familyName,
-                    email: email,
+                    username: profile.displayName,
+                    email: profile.emails[0].value,
                     provider: 'facebook',
                     facebook: {
                         id: profile.id

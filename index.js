@@ -59,7 +59,7 @@ app.get('/profile', userController.getProfile);
 
 app.get('/logout', userController.logout);
 
-app.get('/auth/facebook', userController.facebookLogin);
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),

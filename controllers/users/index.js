@@ -98,23 +98,6 @@ exports.getProfile = function(req, res) {
   });
 };
 
-exports.facebookLogin = passport.authenticate('facebook', {
-
-});
-
-// passport.authenticate('local', {
-//   successRedirect: '/result',
-//   failureRedirect: '/login'
-// });
-
-// function(req, res) {
-//    console.log('worked');
-//    passport.authenticate('facebook'),
-//     function(req, res){
-//       // The request will be redirected to Facebook for authentication, so this
-//       // function will not be called.
-//     };
-// };
 
 exports.logout = function(req, res) {
   req.logout();
