@@ -111,6 +111,9 @@ input {
   vertical-align: middle;
   white-space: nowrap; }
 
+.btn-primary {
+  background-color: #B4463C; }
+
 .btn-facebook {
   background-color: #3b5998; }
 

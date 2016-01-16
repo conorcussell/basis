@@ -6,5 +6,6 @@ block content
   .row
     .col-quarter
       each post in posts
-        .post= post.title
-          a(href="/posts/#{post.id}") View Post
+        .post
+          h1= post.title
+          a(class="btn btn-primary", href="/posts/#{post.id}") View Post
