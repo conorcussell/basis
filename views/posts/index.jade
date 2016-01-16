@@ -1,0 +1,8 @@
+extends ../layouts/layout
+
+block content
+  .row
+    .col-quarter
+      each post in posts
+        .post= post.title
+          a(href="/posts/#{post.id}") View Post
