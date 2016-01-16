@@ -1,7 +1,11 @@
-@import 'settings.reset';
-@import 'settings.variables';
+@import 'settings.colors';
 
-@import 'elements.general';
+@import 'base.reset';
+
+@import 'generic.body';
+@import 'generic.forms';
+
+@import 'objects.buttons';
 
 @import 'components.header';
 

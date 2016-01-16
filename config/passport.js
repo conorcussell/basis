@@ -49,6 +49,7 @@ passport.use(new FacebookStrategy({
   enableProof: false
 },
 function(accessToken, refreshToken, profile, done) {
+        var photo = "https://graph.facebook.com/" + profile.id + "/picture";
         User.findOne({
             'facebook.id': profile.id
         }, function(err, user) {
@@ -61,7 +62,8 @@ function(accessToken, refreshToken, profile, done) {
                     email: profile.emails[0].value,
                     provider: 'facebook',
                     facebook: {
-                        id: profile.id
+                        id: profile.id,
+                        photo: photo
                     }
                 });
                 user.save(function(err) {
