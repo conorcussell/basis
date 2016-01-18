@@ -29,20 +29,13 @@ before(function(done) {
     });
   });
 
-  it('create a post', function(done) {
 
-  });
-
-  it('read a post', function(done) {
-
-  });
-
-  it('update a post', function(done) {
-
-  });
-
-  it('delete a post', function(done) {
-
+  it('return a post', function(done) {
+    Post.findOne({ title: "Title"}, function(err, post) {
+      post.title.should.eql('Title');
+      console.log("   title: ", post.title)
+      done();
+    });
   });
 
  afterEach(function(done) {
